@@ -1,4 +1,12 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
 <form action="createUser" method="post">
+
     <input type="text" name="fullname" placeholder="Nombre Completo">
     <input type="text" name="phone" placeholder="Telefono">
     <input type="text" name="email" placeholder="Email">
@@ -6,4 +14,29 @@
     <button type="submit">
         Guardar
     </button>
+
 </form>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Fullname</td>
+            <td>Phone</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users%}
+        <tr>
+            <td>{{ user.0 }}</td>
+            <td>{{ user.1 }}</td>
+            <td>{{ user.2 }}</td>
+            <td>{{ user.3 }}</td>
+            <td>
+                <a href="/updateUser/{{ user.0 }}">Editar</a>
+                <a href="/deleteUser/{{ user.0 }}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
